@@ -1,4 +1,4 @@
-﻿using System.Data.SqlTypes;
+﻿global using System.Data.SqlTypes;
 
 namespace SprintathonAPI.Models
 {

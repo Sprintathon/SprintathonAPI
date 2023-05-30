@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SprintathonAPI.Models;
 using SprintathonAPI.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace SprintathonAPI.Controllers;
 
@@ -39,7 +40,7 @@ public class ServiceController : ControllerBase
     [HttpPut("{id}")]
     public async Task<ActionResult<Service>> PutServiceObj(int id, Service serviceObj)
     {   
-        if(id != _db.Services.id)
+        if(id != serviceObj.Id)
         {
             return BadRequest();
         }
@@ -53,14 +54,14 @@ public class ServiceController : ControllerBase
         }
         catch (DbUpdateConcurrencyException)
         {
-            if (!ServiceExists(serviceObj.Id))
-            {
-                return NotFound();
-            }
-            else
-            {
-                throw;
-            }
+            // if (!ServiceExists(serviceObj.Id))
+            // {
+            //     return NotFound();
+            // }
+            // else
+            // {
+            //     throw;
+            // }
         }
         return NoContent();
         
@@ -69,7 +70,7 @@ public class ServiceController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<Service>> PostServiceObj(Service serviceObj)
     {
-        _db.Service.Add(serviceObj);
+        _db.Services.Add(serviceObj);
         await _db.SaveChangesAsync();
 
         return CreatedAtAction("GetExampleEntity", new { id = serviceObj.Id }, serviceObj);
@@ -79,13 +80,13 @@ public class ServiceController : ControllerBase
         [HttpDelete("{id}")]
         public async Task<ActionResult<Service>> DeleteServiceObj(int id)
         {
-            var serviceObj = await _db.Examples.FindAsync(id);
+            var serviceObj = await _db.Services.FindAsync(id);
             if (serviceObj == null)
             {
                 return NotFound();
             }
 
-            _db.Examples.Remove(serviceObj);
+            _db.Services.Remove(serviceObj);
             await _db.SaveChangesAsync();
 
             return serviceObj;

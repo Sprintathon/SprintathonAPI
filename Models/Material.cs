@@ -1,6 +1,7 @@
 ﻿namespace SprintathonAPI.Models
 {
-    public class Type : IdNameBase
+    public class Material : IdNamePrice
     {
+     
     }
 }

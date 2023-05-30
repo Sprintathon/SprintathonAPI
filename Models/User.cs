@@ -1,4 +1,4 @@
-namespace SprintathonAPI.Models
+namespace SprintathonAPI.Models;
 
 public class User: IdNameBase
 {

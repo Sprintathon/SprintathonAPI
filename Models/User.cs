@@ -1,3 +1,4 @@
+namespace SprintathonAPI.Models
 
 public class User: IdNameBase
 {
@@ -8,6 +9,5 @@ public class User: IdNameBase
     public string location { get; set; }
     public string phoneNumber { get; set; }
 
-    public Name =$"{firstName} {lastName}";
-    
+       
 }

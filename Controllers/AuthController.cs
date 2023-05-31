@@ -1,17 +1,20 @@
 using Microsoft.IdentityModel.Tokens;
+using SprintathonAPI.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
 namespace SprintathonAPI.Controllers
 {
-     [Route("api/[controller]")]
-     [ApiController]
+<<<<<<< HEAD
+    [Route("api/[controller]")]
+    [ApiController]
 
     public class AuthController : Controller
     {
         public static User user = new User();
         private IConfiguration _configuration;
+        private readonly ApplicationDbContext _dataContext;
 
         public AuthController(IConfiguration configuration)
         {
@@ -21,7 +24,7 @@ namespace SprintathonAPI.Controllers
         //User Registration
         [HttpPost("register")]
 
-        public ActionResult<User> Register(CreateUserDto request)
+        public async Task<ActionResult<User>> Register(CreateUserDto request)
         {
             string password
                 = BCrypt.Net.BCrypt.HashPassword(request.Password);
@@ -30,7 +33,8 @@ namespace SprintathonAPI.Controllers
             user.LastName = request.LastName;
             user.Email = request.Email;
             user.Password = password;
-
+            _dataContext.Users.Add(user);
+            await _dataContext.SaveChangesAsync();
             return Ok(user);
 
         }
@@ -39,8 +43,9 @@ namespace SprintathonAPI.Controllers
         //Login
         [HttpPost("Login")]
 
-        public ActionResult<User> Login(UserLogInDTo request)
+        public async Task<ActionResult<string>> Login(UserLogInDTo request)
         {
+            var user = await _dataContext.Users.FirstOrDefaultAsync(x => x.Email == request.Email);
             if (user.Email != request.Email)
             {
                 return BadRequest("user not found");
@@ -49,6 +54,10 @@ namespace SprintathonAPI.Controllers
             if (!BCrypt.Net.BCrypt.Verify(request.Password, user.Password))
             {
                 return BadRequest("Wrong Password");
+            }
+            if (user == null)
+            {
+                return Unauthorized();
             }
 
             string token = CreateToken(user);
@@ -81,32 +90,3 @@ namespace SprintathonAPI.Controllers
         }
     }
 }
-
-////////////////////////////////////////////////////////////
-//public class AuthController : Controller 
-//     {
-//          private readonly ApplicationDbContext _dataContext;
-//          public AuthController(ApplicationDbContext dataContext)
-//          {
-//               _dataContext = dataContext;
-//          }
-//        //user registration
-//          [HttpPost("register")]
-//          public async Task<ActionResult<User>> Register(CreateUserDto user)
-//          {
-//               _dataContext.Users.Add(user);
-//               await _dataContext.SaveChangesAsync();
-//               return user;
-//          }
-
-//          [HttpPost("login")]
-//          public async Task<ActionResult<User>> Login(UserLogInDTo userLogInDTo)
-//          {
-//               var user = await _dataContext.Users.FirstOrDefaultAsync(x => x.Email == userLogInDTo.Email);
-//               if (user == null)
-//               {
-//                    return Unauthorized();
-//               }
-//               return user;
-//          }
-//     }

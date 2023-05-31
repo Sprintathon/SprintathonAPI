@@ -15,39 +15,39 @@ namespace SprintathonAPI.Controllers
             _dataContext = dataContext;
         }
         [HttpGet]
-        public async Task<List<User>> GetClinics()
+        public async Task<List<User>> GetUser()
         {
-            var clinics = await _dataContext.Users.ToListAsync();
+            var user = await _dataContext.Users.ToListAsync();
             //check
-            return clinics;
+            return user;
         }
         [HttpGet("{id}")]
-        public Task<User> GetClinic(int id)
+        public Task<User> GetUser(int id)
         {
             var result = _dataContext.Users.FirstOrDefaultAsync(x => x.Id == id);
             //check
             return result;
         }
         [HttpPost]
-        public async Task<User> CreateClinic(User newClinic)
+        public async Task<User> CreateUser(User newUser)
         {
-            _dataContext.Users.Add(newClinic);
+            _dataContext.Users.Add(newUser);
             await _dataContext.SaveChangesAsync();
             //check
-            return newClinic;
+            return newUser;
         }
         [HttpPut]
-        public async Task<User> UpdateClinic(User updatedClinic)
+        public async Task<User> UpdateUser(User updatedUser)
         {
-            _dataContext.Users.Update(updatedClinic);
+            _dataContext.Users.Update(updatedUser);
             await _dataContext.SaveChangesAsync();
             //check
-            return updatedClinic;
+            return updatedUser;
         }
         [HttpDelete("{id}")]
-        public async Task DeleteClinic(int id)
+        public async Task DeleteUser(int id)
         {
-            var user = _dataContext.Users.FirstOrDefault(x => x.Id == id);
+            var user = _dataContext.Users.FirstOrDefault(z => z.Id == id);
             _dataContext.Users.Remove(user);
             await _dataContext.SaveChangesAsync();
         }

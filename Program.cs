@@ -1,4 +1,12 @@
+
+using Microsoft.EntityFrameworkCore;
+using SprintathonAPI.Data;
+
 var builder = WebApplication.CreateBuilder(args);
+
+//Adding the db
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
+    builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add services to the container.
 

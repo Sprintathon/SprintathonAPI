@@ -1,6 +1,6 @@
 ﻿namespace SprintathonAPI.Models
 {
-    public class GarmentType : IdNamePrice
+    public class Business : IdNameBase
     {
     }
 }

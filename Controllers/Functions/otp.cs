@@ -9,24 +9,9 @@ namespace SprintathonAPI.Controllers
         {
                _dataContext = dataContext;
         }
-        //Email Verification
-        [HttpGet]
-     public string Task<ActionResult<User>> GetUser(user Email)
-        {
-            var result = _dataContext.Users.FirstOrDefaultAsync(user =>user .Id == id);
-            //check
-            if(user==null){
-                return NotFound("User not found");
-            }
-            else{
-                return SendOTP();
-            }
-            return result;
-        }
 
-        //
-        //Generating random 4 digit number for OTP
-            public ActionResult GetNumericOTP()
+        [HttpPost]
+        public string GetNumericOTP()
         {
             string numbers = "0123456789";
             Random rndm = new Random();
@@ -38,9 +23,5 @@ namespace SprintathonAPI.Controllers
             }
             return otp;
         } 
-        //Sending Email with OTP
-        //Done
-
-
     }
 }

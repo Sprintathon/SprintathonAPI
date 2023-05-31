@@ -27,5 +27,5 @@ namespace SprintathonAPI.Controllers
                }
                return user;
           }
-     }
+      
 }

@@ -11,6 +11,8 @@ namespace SprintathonAPI.Models {
         public string Location { get; set; }
         public string PhoneNumber { get; set; }
         public Role Role { get; set; }
+        public bool RequestChange { get; set; }
+        public string OTP { get; set; }
     }
 
     public class UserLogInDTo

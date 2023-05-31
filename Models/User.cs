@@ -1,3 +1,5 @@
+using SprintathonAPI.Enums;
+
 namespace SprintathonAPI.Models { 
 
     public class User: IdNameBase
@@ -8,6 +10,7 @@ namespace SprintathonAPI.Models {
         public string Password { get; set; }
         public string Location { get; set; }
         public string PhoneNumber { get; set; }
+        public Role Role { get; set; }
     }
 
     public class UserLogInDTo

@@ -4,10 +4,10 @@ namespace SprintathonAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GarmentContriller : Controller
+    public class GarmentController : Controller
     {
         private readonly ApplicationDbContext _dataContext;
-        public GarmentContriller(ApplicationDbContext dataContext)
+        public GarmentController(ApplicationDbContext dataContext)
         {
             _dataContext = dataContext;
         }

@@ -4,10 +4,29 @@ namespace SprintathonAPI.Controllers
     [ApiController] 
     public class ResetPasswordController : Controller
     {
+        private readonly ApplicationDbContext _dataContext;
+        public ResetPasswordController(ApplicationDbContext dataContext)
+        {
+               _dataContext = dataContext;
+        }
         //Email Verification
+        [HttpGet]
+     public string Task<ActionResult<User>> GetUser(user Email)
+        {
+            var result = _dataContext.Users.FirstOrDefaultAsync(user =>user .Id == id);
+            //check
+            if(user==null){
+                return NotFound("User not found");
+            }
+            else{
+                return SendOTP();
+            }
+            return result;
+        }
+
+        //
         //Generating random 4 digit number for OTP
-        [HttpPost]
-        public ActionResult GetNumericOTP()
+            public ActionResult GetNumericOTP()
         {
             string numbers = "0123456789";
             Random rndm = new Random();

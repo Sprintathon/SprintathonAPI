@@ -7,17 +7,17 @@ global using MimeKit.Text;
 namespace SprintathonAPI.Controllers
 {
 
+   
+    [Route("api/[controller]")]
     [ApiController]
-    [Route("/[Controller]")]
-    public class MailController : ControllerBase
+    public class MailController : Controller
     {
 
         public MailController()
         {
         }
 
-
-        [HttpGet]
+        [HttpPost]
         public async Task<ActionResult> SendMail(MailMessage mail)
         {
             string failed = null;
@@ -50,7 +50,7 @@ namespace SprintathonAPI.Controllers
             }
             if (failed is null)
 
-                return Ok("Success");
+                return Ok("Sent mail");
             else return BadRequest(failed);
 
 

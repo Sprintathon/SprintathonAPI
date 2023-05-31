@@ -6,7 +6,6 @@ using System.Text;
 
 namespace SprintathonAPI.Controllers
 {
-<<<<<<< HEAD
     [Route("api/[controller]")]
     [ApiController]
 
@@ -24,18 +23,13 @@ namespace SprintathonAPI.Controllers
         //User Registration
         [HttpPost("register")]
 
-        public async Task<ActionResult<User>> Register(CreateUserDto request)
-        {
-            string password
-                = BCrypt.Net.BCrypt.HashPassword(request.Password);
-
-            user.FirstName = request.FirstName;
-            user.LastName = request.LastName;
-            user.Email = request.Email;
-            user.Password = password;
+        public async Task<ActionResult<string>> Register(CreateUserDto request)
+        {   
             _dataContext.Users.Add(user);
             await _dataContext.SaveChangesAsync();
-            return Ok(user);
+            string token = CreateToken(user);
+
+            return Ok(token);
 
         }
 
@@ -51,10 +45,11 @@ namespace SprintathonAPI.Controllers
                 return BadRequest("user not found");
             }
 
-            if (!BCrypt.Net.BCrypt.Verify(request.Password, user.Password))
+            if (user.Password != request.Password)
             {
-                return BadRequest("Wrong Password");
+                return BadRequest("Incorrect Password");
             }
+
             if (user == null)
             {
                 return Unauthorized();

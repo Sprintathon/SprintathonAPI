@@ -19,6 +19,7 @@ namespace SprintathonAPI.Data
             public DbSet<GarmentType> GarmentTypes { get; set; }
             public DbSet<User> Users { get; set; }
             public DbSet<Basket> Baskets { get; set; }
+            public DbSet<Business> Businesses { get; set; }
         
 
 

@@ -51,5 +51,7 @@ namespace SprintathonAPI.Controllers
             _dataContext.Users.Remove(user);
             await _dataContext.SaveChangesAsync();
         }
+
+
     }
 }
